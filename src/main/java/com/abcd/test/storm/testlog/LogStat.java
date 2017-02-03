@@ -1,7 +1,9 @@
 package com.abcd.test.storm.testlog;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import backtype.storm.task.OutputCollector;
 import backtype.storm.task.TopologyContext;
@@ -17,12 +19,22 @@ public class LogStat extends BaseRichBolt {
 
 	@Override
 	public void execute(Tuple input) {
+		String streamId=input.getSourceStreamId();
+		if(streamId.equals("log")){
 		String user=input.getStringByField("user");
 		if(_pvMap.containsKey(user))
 			_pvMap.put(user, _pvMap.get(user)+1);
 		else
 			_pvMap.put(user, 1);
-		_collector.emit(new Values(user,_pvMap.get(user)));
+//		_collector.emit(new Values(user,_pvMap.get(user)));
+		}
+		if(streamId.equals("stop")){
+			Iterator<Entry<String,Integer>> it=_pvMap.entrySet().iterator();
+			while(it.hasNext()){
+				Entry<String,Integer> entry=it.next();
+				_collector.emit(new Values(entry.getKey(),entry.getValue()));
+			}
+		}
 	}
 
 	@Override

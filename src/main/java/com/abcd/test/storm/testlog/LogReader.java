@@ -21,12 +21,17 @@ public class LogReader extends BaseRichSpout {
 	public void nextTuple() {
 		try{
 			Thread.sleep(1000);
-			while(_count-->0){
-				this._collector.emit(new Values(
+			while(_count-->=0){
+				if(_count==0){
+					_collector.emit("stop",new Values(""));
+				}
+				else{
+				this._collector.emit("log",new Values(
 						System.currentTimeMillis(),
 						_users[_rand.nextInt(5)],
 						_urls[_rand.nextInt(5)]
 						));
+				}
 			}
 		}catch(InterruptedException e){
 			e.printStackTrace();
@@ -40,7 +45,10 @@ public class LogReader extends BaseRichSpout {
 
 	@Override
 	public void declareOutputFields(OutputFieldsDeclarer declarer) {
-		declarer.declare(new Fields("time","user","url"));
+//		declarer.declare(new Fields("time","user","url"));
+		//2.
+		declarer.declareStream("log", new Fields("time","user","url"));
+		declarer.declareStream("stop", new Fields("flag"));
 	}
 
 }
