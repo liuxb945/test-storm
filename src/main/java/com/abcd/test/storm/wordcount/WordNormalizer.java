@@ -1,4 +1,4 @@
-package bolts;
+package com.abcd.test.storm.wordcount;
 
 import backtype.storm.topology.BasicOutputCollector;
 import backtype.storm.topology.OutputFieldsDeclarer;

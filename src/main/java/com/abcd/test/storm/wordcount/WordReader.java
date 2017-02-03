@@ -1,4 +1,4 @@
-package spouts;
+package com.abcd.test.storm.wordcount;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

@@ -1,4 +1,4 @@
-package com.abcd.test.storm;
+package com.abcd.test.storm.simple;
 
 import java.util.Map;
 import java.util.Random;

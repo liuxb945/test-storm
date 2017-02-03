@@ -1,4 +1,4 @@
-package com.abcd.test.storm;
+package com.abcd.test.storm.simple;
 
 import backtype.storm.topology.BasicOutputCollector;
 import backtype.storm.topology.OutputFieldsDeclarer;

@@ -1,4 +1,4 @@
-package com.abcd.test.storm;
+package com.abcd.test.storm.simple;
 
 import backtype.storm.Config;
 import backtype.storm.LocalCluster;

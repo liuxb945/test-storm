@@ -1,4 +1,4 @@
-package bolts;
+package com.abcd.test.storm.wordcount;
 
 import java.util.HashMap;
 import java.util.Map;

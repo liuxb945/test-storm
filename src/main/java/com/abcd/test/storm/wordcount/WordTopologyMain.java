@@ -1,13 +1,11 @@
-import spouts.WordReader;
+package com.abcd.test.storm.wordcount;
 import backtype.storm.Config;
 import backtype.storm.LocalCluster;
 import backtype.storm.topology.TopologyBuilder;
 import backtype.storm.tuple.Fields;
-import bolts.WordCounter;
-import bolts.WordNormalizer;
 
 
-public class TopologyMain {
+public class WordTopologyMain {
 	public static void main(String[] args) throws InterruptedException {
          
         //Topology definition
@@ -27,7 +25,7 @@ public class TopologyMain {
 		conf.put(Config.TOPOLOGY_MAX_SPOUT_PENDING, 1);
 		LocalCluster cluster = new LocalCluster();
 		cluster.submitTopology("Getting-Started-Toplogie", conf, builder.createTopology());
-		Thread.sleep(1000);
+		Thread.sleep(3000);
 		cluster.shutdown();
 	}
 }
