@@ -6,5 +6,6 @@
 </head>
 <body>
 <h1>商品详情:${p.name}---${p.id}----${p.category}</h1>
+<#include "copyright.ftl">
 </body>
 </html>

@@ -1,5 +1,11 @@
 package com.abcd.test.storm.freemarker;
 
+import java.io.FileInputStream;
+import java.util.Enumeration;
+import java.util.Properties;
+
+import com.abcd.test.storm.util.ResourceLoader;
+
 import backtype.storm.Config;
 import backtype.storm.LocalCluster;
 import backtype.storm.StormSubmitter;
@@ -19,6 +25,16 @@ public class TaskTopology {
             Config config = new Config();
             config.setDebug(false);
             config.setNumWorkers(5);
+            ResourceLoader loader=ResourceLoader.getInstance();
+            Properties pps=loader.getPropFromProperties("config/redis.properties");
+            Enumeration enum1 = pps.propertyNames();//得到配置文件的名字
+            while(enum1.hasMoreElements()) {
+                String strKey = (String) enum1.nextElement();
+                String strValue = pps.getProperty(strKey);
+                System.out.println(strKey + "=" + strValue);
+                config.put(strKey, strValue);
+            }
+            
             if (args != null && args.length > 0) {
                 config.setNumWorkers(1);
                 StormSubmitter.submitTopology(args[0], config, topologyBuilder.createTopology());
