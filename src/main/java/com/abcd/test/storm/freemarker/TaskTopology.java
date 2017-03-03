@@ -26,7 +26,7 @@ public class TaskTopology {
             config.setDebug(false);
             config.setNumWorkers(5);
             ResourceLoader loader=ResourceLoader.getInstance();
-            Properties pps=loader.getPropFromProperties("config/redis.properties");
+            Properties pps=loader.getPropFromProperties("/config/application.properties");
             Enumeration enum1 = pps.propertyNames();//得到配置文件的名字
             while(enum1.hasMoreElements()) {
                 String strKey = (String) enum1.nextElement();
@@ -41,8 +41,10 @@ public class TaskTopology {
             } else {
                 // 这里是本地模式下运行的启动代码。
 //                config.setMaxTaskParallelism(1);
-                LocalCluster cluster = new LocalCluster();
-                cluster.submitTopology("task-topology", config, topologyBuilder.createTopology());
+//                LocalCluster cluster = new LocalCluster();
+//                cluster.submitTopology("task-topology", config, topologyBuilder.createTopology());
+            	StormSubmitter.submitTopology("html-task-topology", config,
+            			topologyBuilder.createTopology());
             }
             
         } catch (Exception e) {

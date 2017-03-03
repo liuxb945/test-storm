@@ -1,5 +1,7 @@
 package com.abcd.test.storm.util;
 
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 
 public class JsonUtil {
@@ -13,8 +15,14 @@ private static ObjectMapper mapper;
 	 */
 	public static synchronized ObjectMapper getMapper() {   
 		if (mapper == null) {   
-            mapper = new ObjectMapper();   
-        }    
+            mapper = new ObjectMapper();
+            mapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
+            mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+            mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+            mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
+            mapper.configure(JsonParser.Feature.INTERN_FIELD_NAMES, true);
+            mapper.configure(JsonParser.Feature.CANONICALIZE_FIELD_NAMES, true);
+        }   mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false); 
         return mapper;   
     } 
 	

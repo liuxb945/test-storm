@@ -1,9 +1,10 @@
 package com.abcd.test.storm.util;
 
-import java.io.File;  
-import java.io.FileInputStream;  
-import java.util.HashMap;  
-import java.util.Map;  
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;  
   
 public final class ResourceLoader {  
@@ -23,17 +24,14 @@ public final class ResourceLoader {
         Properties prop = loaderMap.get(fileName);  
         if (prop != null) {  
             return prop;  
-        }  
-        String filePath = null;  
-        String configPath = System.getProperty("configurePath");  
+        }
+        else{
+        	prop=new Properties();
+        }
   
-        if (configPath == null) {  
-            filePath = this.getClass().getClassLoader().getResource(fileName).getPath();  
-        } else {  
-            filePath = configPath + "/" + fileName;  
-        }  
-        prop = new Properties();  
-        prop.load(new FileInputStream(new File(filePath)));  
+        InputStream ips = ResourceLoader.class.getResourceAsStream(fileName);  
+        BufferedReader ipss = new BufferedReader(new InputStreamReader(ips));  
+        prop.load(ipss); 
   
         loaderMap.put(fileName, prop);  
         return prop;  

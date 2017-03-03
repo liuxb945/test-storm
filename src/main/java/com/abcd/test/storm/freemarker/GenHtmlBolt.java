@@ -32,7 +32,6 @@ public class GenHtmlBolt extends BaseRichBolt {
 	private Map<String,Long> taskMap;
 	private Map<String,Long> genedMap;
 	private FreemarkerUtil util;
-//	private String fn = "e:/test/freemarker/";
 	private String fn;
 	Jedis jedis;
 	String host;
@@ -67,6 +66,7 @@ public class GenHtmlBolt extends BaseRichBolt {
 		host = stormConf.get("redis.host").toString();
 		port = Integer.valueOf(stormConf.get("redis.port").toString());
 		password = stormConf.get("redis.password").toString();
+		fn=stormConf.get("savefile.path").toString();
 		reconnectRedis();
 	}
 	
@@ -151,16 +151,16 @@ public class GenHtmlBolt extends BaseRichBolt {
 				//变量
 				root.put("base", "http://192.168.0.20/rmdfront");
 				root.put("cmsUrlHelpCenter", "http://192.168.0.20/rmdfront");
-//				util.fprint(root, "content.ftl", fn + "/products/id-"+pp.getGoods().getId()+".html");
+				util.fprint(root, "content.ftl", fn + "/products/id-"+pp.getGoods().getId()+".html");
 //				util.sprint(root, "content.ftl");
-				File tempFile=util.creatTemp();
+				/*File tempFile=util.creatTemp();
 				System.out.println(tempFile.getAbsolutePath());
 				util.tprint(root, "content.ftl", tempFile);
 				InputStream is=new FileInputStream(tempFile);
 				String key="development/saharabuy/pccn/html/products/"+"id-"+pp.getGoods().getId()+".html";
 	            ossClient.putObject(bucketName, key, is);
 	            is.close();
-	            tempFile.deleteOnExit();
+	            tempFile.deleteOnExit();*/
 				if(genedMap.containsKey(taskid)){
 					genedMap.put(taskid, genedMap.get(taskid)+1);
 				}else{
